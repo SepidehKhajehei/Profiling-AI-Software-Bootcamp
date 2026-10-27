@@ -85,8 +85,13 @@ fi
 WORKSPACE="$REPO_DIR/workspace"
 VENV="$REPO_DIR/.venv"
 echo "--> Repository: $REPO_DIR"
+# Brev clones the default branch; switch to the branch that has the brev/ folder
 if [ ! -f "$REPO_DIR/brev/adapt_notebooks.py" ]; then
-    echo "ERROR: $REPO_DIR has no brev/ folder. Point the Launchable at a repo/branch that contains it."
+    echo "--> brev/ not found; checking out $REPO_BRANCH from $REPO_URL"
+    as_user "git -C '$REPO_DIR' fetch --depth 1 '$REPO_URL' '$REPO_BRANCH' && git -C '$REPO_DIR' checkout -B '$REPO_BRANCH' FETCH_HEAD" || true
+fi
+if [ ! -f "$REPO_DIR/brev/adapt_notebooks.py" ]; then
+    echo "ERROR: $REPO_DIR has no brev/ folder. Set REPO_URL/REPO_BRANCH to a repo/branch that contains it."
     exit 1
 fi
 
