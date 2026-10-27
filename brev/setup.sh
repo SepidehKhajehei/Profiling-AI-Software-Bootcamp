@@ -174,6 +174,8 @@ if [ ! -f "$WORKSPACE/data/data-list.zip" ] || [ ! -f "$WORKSPACE/source_code/sa
 fi
 [ -f "$WORKSPACE/data/data-list.zip" ] && as_user "unzip -q -u '$WORKSPACE/data/data-list.zip' -d '$WORKSPACE/data/'"
 [ -f "$WORKSPACE/source_code/saved_models.zip" ] && as_user "unzip -q -u '$WORKSPACE/source_code/saved_models.zip' -d '$WORKSPACE/source_code/'"
+# The zip stores saved_models/ read-only; the labs write new checkpoints there
+[ -d "$WORKSPACE/source_code/saved_models" ] && as_user "chmod u+w '$WORKSPACE/source_code/saved_models'"
 
 # dp/ and mp/ download MNIST from every rank at once; fetch it up front to avoid the race
 as_user "cd '$WORKSPACE/source_code' && '$VENV/bin/python' -c \"

@@ -7,7 +7,7 @@ This guide deploys the Profiling AI Software Bootcamp on [NVIDIA Brev](https://b
 | Lab | Notebook | On Brev (4x A100) |
 |-----|----------|-------------------|
 | Lab 1: System Topology | `system-topology.ipynb` | ✅ Yes |
-| Lab 2: Distributed Training Strategy | `data-parallelism.ipynb` | ✅ Yes. The multi-node activities are already marked *read only*. |
+| Lab 2: Distributed Training Strategy | `data-parallelism.ipynb` | ✅ Yes. The multi-node activities run on two emulated 2-GPU nodes on the same instance. |
 | | `model-parallelism.ipynb` | ✅ Yes (uses 3 GPUs) |
 | Lab 3: Performance Overview | `nsys-introduction.ipynb` | ✅ Yes |
 | | `nsys-application.ipynb` | ✅ Yes |
