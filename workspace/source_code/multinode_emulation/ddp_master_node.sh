@@ -27,5 +27,8 @@ fi
 export NCCL_DEBUG=${NCCL_DEBUG:-WARN}
 
 cd "$(dirname "$0")/../.."           # workspace directory
+if ! command -v torchrun >/dev/null && [ -x ../.venv/bin/torchrun ]; then
+    export PATH="$(cd .. && pwd)/.venv/bin:$PATH"   # bootcamp Python environment
+fi
 torchrun --nproc_per_node=2 --nnodes=2 --node_rank=0 --master_addr=$MasterIPaddress --master_port=1234 \
     source_code/test_ddp.py --num_epochs ${NUM_EPOCHS:-2} --model_filename resnet_node0.pth

@@ -200,6 +200,11 @@ spec['env'] = {'PATH': '$LAB_PATH', 'VIRTUAL_ENV': '$VENV'}
 json.dump(spec, open(path, 'w'), indent=1)
 EOF"
 
+# Terminals (JupyterLab or brev shell) get the same environment: torchrun, python, nsys
+BASHRC_MARK="# profiling-bootcamp environment"
+grep -qF "$BASHRC_MARK" "$LAB_HOME/.bashrc" 2>/dev/null \
+    || as_user "printf '\n%s\n[ -f %s/bin/activate ] && . %s/bin/activate\n' '$BASHRC_MARK' '$VENV' '$VENV' >> ~/.bashrc"
+
 # ---------------------------------------------------------------------------
 # 8. JupyterLab service (survives reboots; the Brev setup script does not re-run)
 # ---------------------------------------------------------------------------
