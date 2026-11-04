@@ -48,6 +48,7 @@ def main():
 		print(f"Epoch {epoch}")
 		for idx, (data, target) in enumerate(train_loader):
 			data, target = data.cuda(), target.cuda()
+			optimizer.zero_grad()
 			output = model(data)
 			loss = F.cross_entropy(output, target)
 			loss.backward()
